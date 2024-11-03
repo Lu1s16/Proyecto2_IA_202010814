@@ -58,6 +58,7 @@ function joinArrays() {
     return a
 }
 
+
 function joinArraysPolynomial() {
     var a = []
     if (arguments.length == 10) {
@@ -68,6 +69,8 @@ function joinArraysPolynomial() {
     }
     return a;
 }
+
+
 
 function parseCSV(csv) {
     const rows = csv.split('\n').map(row => row.split(','));
@@ -99,13 +102,12 @@ function populateVariableSelects(columns) {
     });
 }
 
+
 function populateTree(columns) {
 
     columns.forEach((col, index) => {
-       
+
         header.push(col.replace(/\r/g, ''))
-        
-        
 
     })
     console.log("headers")
@@ -134,7 +136,6 @@ function Entrenar() {
     } else if (inputSelect === "PolynomialRegression") {
         document.getElementById('tree-data').style.display = 'none'; //oculta grafica de tree
         document.getElementById("chart_div").style.display = "block"; //muestra chart
-
         Polynomial()
     } else if (inputSelect === "DecisionTree") {
         document.getElementById('tree-data').style.display = 'block'; //muestra grafica tree
@@ -148,10 +149,8 @@ function Entrenar() {
         document.getElementById("log7").innerHTML = "";
         document.getElementById("log8").innerHTML = "";
         document.getElementById("log9").innerHTML = "";
-
         DecisionTree()
     }
-
 
 }
 
@@ -197,7 +196,6 @@ function Predecir() {
 
 function Tendencia() {
     const inputSelect = document.getElementById('modelos').value;
-    
 
     if (inputSelect === "LinealRegression") {
         document.getElementById('tree-data').style.display = 'none'; //oculta la grafica de tree
@@ -239,7 +237,6 @@ function LinealRegresion() {
         alert("Por favor, cargue un dataset y seleccione el algoritmo de regresión lineal.");
         return;
     }
-
     const trainSize = parseFloat(document.getElementById('train-size').value) / 100;
     // Verifica si el usuario seleccionó predicción y ejecuta predicción
     const trainObjective = document.getElementById('train-objective').value;
@@ -247,34 +244,22 @@ function LinealRegresion() {
     // Inicializar las variables de entrada y salida
     let inputFeatures, targetVariable;
 
-    if (trainObjective === 'supervisado') {
-        // Leer los valores de los selects para las variables de entrada y salida
-        inputFeatures = document.getElementById('input-variable').value;
-        targetVariable = document.getElementById('output-variable').value;
-        console.log(inputFeatures)
+    // Leer los valores de los selects para las variables de entrada y salida
+    inputFeatures = document.getElementById('input-variable').value;
+    targetVariable = document.getElementById('output-variable').value;
+    console.log(inputFeatures)
 
-        // Verificar que ambas variables estén seleccionadas
-        if (!inputFeatures || !targetVariable) {
-            alert("Por favor, seleccione tanto la variable de entrada como la de salida.");
-            return;
-        }
-    } else {
-        // Si no es supervisado, puedes definir valores predeterminados
-        inputFeatures = document.getElementById('input-variable').value;
-        targetVariable = document.getElementById('output-variable').value;
+    // Verificar que ambas variables estén seleccionadas
+    if (!inputFeatures || !targetVariable) {
+        alert("Por favor, seleccione tanto la variable de entrada como la de salida.");
+        return;
     }
-
 
     // Datos de entrenamiento
     const trainData = dataset.slice(0, Math.floor(trainSize * dataset.length));
 
-
     X_train = trainData.map(d => d[inputFeatures]);
     y_train = trainData.map(d => d[targetVariable]);
-
-    console.log("X_train: ")
-    console.log(X_train)
-    console.log(y_train)
 
     if (typeof LinearRegression !== 'function') {
         console.error("Error: LinearRegression no está definido. Asegúrate de que tytus.js esté cargado correctamente.");
@@ -284,10 +269,7 @@ function LinealRegresion() {
     model = new LinearRegression();
     model.fit(X_train, y_train);
 
-
     alert("Modelo entrenado")
-
-
 
 }
 
@@ -297,7 +279,6 @@ function PrediccionLinealRegresion() {
 
     if (trainObjective === 'prediccion') {
         const predictionValue = document.getElementById('prediction-input').value;
-
 
         let cadena = predictionValue.toString()
         let numeros = cadena.split(",")
@@ -314,7 +295,6 @@ function PrediccionLinealRegresion() {
 
         console.log("Predicción para el valor ingresado:", yPredict);
         const a = joinArrays('x', X_train, 'yTrain', y_train, 'yPredict', yPredict);
-
 
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(() => drawChart(a));
@@ -358,7 +338,6 @@ function Polynomial() {
 
     model.fit(X_train, y_train, 2);
     alert("Modelo entrenado")
-
 
 
 }
@@ -439,16 +418,14 @@ function DecisionTree() {
         codeElement.innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;" + "[" + row + "],<br/>"
     })
 
-
-
     codeElement.innerHTML += "]<br />"
     console.log(header)
-    let value2 = header[header.length-1]
+    let value2 = header[header.length - 1]
     console.log(value2)
     let header2 = []
 
-    header.forEach((row, index)=> {
-        if(index != header.length-1) {
+    header.forEach((row, index) => {
+        if (index != header.length - 1) {
             header2.push(row)
         }
 
@@ -458,7 +435,6 @@ function DecisionTree() {
 
         let dtSt = []
         //Insertar header que ya es un array de elementos
-        
 
         rows.forEach((row, index) => {
             let row_array = []
@@ -471,7 +447,7 @@ function DecisionTree() {
         })
 
         console.log(dtSt)
-        
+
 
         const trainObjective = document.getElementById('train-objective').value;
         let predict_values = []
@@ -492,8 +468,6 @@ function DecisionTree() {
         console.log(header2)
         console.log(predict_values)
 
-
-
         let dTree = new DecisionTreeID3(dtSt);
         console.log(dTree)
         console.log(dTree.dataset)
@@ -509,14 +483,13 @@ function DecisionTree() {
     }
 
 
-
     var chart = document.getElementById("tree");
     var {
         dotStr,
         predictNode
     } = this.testWithChart()
     //console.log(predictNode);
-    document.getElementById("log1").innerHTML = "Childs: [] "  + " id: " + predictNode.id  + " tag: "  + predictNode.tag + " " + value2 + ": " + predictNode.value
+    document.getElementById("log1").innerHTML = "Childs: [] " + " id: " + predictNode.id + " tag: " + predictNode.tag + " " + value2 + ": " + predictNode.value
     var parsDot = vis.network.convertDot(dotStr);
     var data = {
         nodes: parsDot.nodes,
@@ -546,11 +519,11 @@ const Tendencias = () => {
     if (X_train.length > 1 && y_train.length > 1) {
         const trendData = [];
 
-        const slope = (y_train[y_train.length - 1] - y_train[0]) / (X_train[X_train.length - 1] - X_train[0]);
-        const trendText = slope > 0 ? "La tendencia es ascendente." : "La tendencia es descendente.";
-        
+        const pendiente = (y_train[y_train.length - 1] - y_train[0]) / (X_train[X_train.length - 1] - X_train[0]);
+        const trendText = pendiente > 0 ? "La tendencia es ascendente." : "La tendencia es descendente.";
+
         alert(trendText)
-        
+
         // Preparar los datos para el gráfico
         for (let i = 0; i < X_train.length; i++) {
             trendData.push([X_train[i], y_train[i]]);
@@ -561,7 +534,6 @@ const Tendencias = () => {
         alert('No hay suficientes datos para determinar la tendencia.', 'error');
     }
 };
-
 
 
 function drawChartP(a) {
