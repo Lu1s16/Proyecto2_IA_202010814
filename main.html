@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Proyecto 2 IA</title>
+    <script type="text/javascript" src="./tytus.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <p>Proyecto 2 IA</p>
+
+    <label for="dataset-upload">Sube un dataset:</label>
+    <input type="file" id="dataset" accept=".csv" />
+    <br><br>
+
+    <label for="algorithm-select">Seleccione algoritmo de machine learning:</label>
+    <select id="modelos">
+        <option value="">--Elija una opción--</option>
+        <option value="LinealRegression">Linear Regression</option>
+        <option value="PolynomialRegression">Polynomial Regression</option>
+        <option value="DecisionTree">Decision tree</option>
+    </select>
+    <br><br>
+
+    <label>Porcentaje de datos de entrenamiento:</label>
+    <input type="number" id="train-size" value="80" /> %
+    <br><br>
+
+    <!-- Selector de Objetivo de Entrenamiento para lineal regresion -->
+
+    <label>Seleccione el objetivo de entrenamiento:</label>
+    <select id="train-objective">
+        <option value="">--Elija una opcion--</option>
+        <option value="prediccion">Predicción</option>
+        <option value="supervisado">Aprendizaje Supervisado</option>
+    </select>
+    <br><br>
+
+    <!-- Ingreso de rango en el eje X para predicción -->
+    <label id="prediction-label" style="display: none;">Ingrese valores para predecir separados por coma:</label>
+    <input type="text" id="prediction-input" style="display: none;" />
+    <br><br>
+
+
+
+
+    <div id="decision-tree-objectives" style="display: none">
+
+        <!-- Ingreso de rango en el eje X para predicción -->
+        <label id="prediction-label-tree">Ingrese el valor para predecir</label>
+        <input type="text" id="prediction-input" style="display: none;" />
+        <br><br>
+    </div>
+
+
+
+
+    <!-- Selección de Variable de Entrada y Salida -->
+    <label id="input-label">Seleccione la variable de entrada:</label>
+    <select id="input-variable"></select>
+    <br><br>
+
+    <label id="output-label">Seleccione la variable de salida:</label>
+    <select id="output-variable"></select>
+    <br><br>
+
+    <!-- Ingreso de prediccion para el treee-->
+    <div id="prediction-tree">
+        <!-- Ingreso de rango en el eje X para predicción -->
+        <label id="prediction-label-tree">Ingrese el valor para predecir</label>
+        <input type="text" id="prediction-input" style="display: none;" />
+        <br><br>
+
+
+    </div>
+
+
+
+    <button onclick="Entrenar()">Entrenar modelo</button>
+    <button onclick="Predecir()">Predecir</button>
+    <button onclick="Tendencia()">Tendencia</button>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-8 offset-md-1 mt-4">
+            <div class="jumbotron">
+                <p class="text-dark" id="log1"></p>
+                <p class="text-dark" id="log2"></p>
+                <p class="text-dark" id="log3"></p>
+                <p class="text-dark" id="log4"></p>
+                <p class="text-dark" id="log5"></p>
+                <p class="text-dark" id="log6"></p>
+                <p class="text-dark" id="log7"></p>
+                <p class="text-dark" id="log8"></p>
+                <p class="text-dark" id="log9"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="tree-data" style="display: none;">
+        <code id="text-info">
+            [<br />
+                
+            ]<br />
+
+        </code>
+
+        <h3 class="display-6 text-center mt-5">Result Tree:<br /></h3>
+        <div class="container mb-5">
+            <div style="width: 100%; height: 500px; border: 2px dashed red; border-radius: 10px;" id="tree"></div>
+        </div>
+
+    </div>
+
+
+    <div id="chart_div" style="width: 800px; height: 400px;"></div>
+
+
+
+
+    <script type="text/javascript" src="./ModeloLinealRegresion.js"></script> <!-- Importa index.js -->
+
+</body>
+
+</html>
